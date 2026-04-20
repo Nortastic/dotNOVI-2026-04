@@ -1,0 +1,465 @@
+/* dotNOVI Application Styles — NOVI Hogeschool huisstijl */
+
+/* Google Fonts: Poppins (body) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* NOVI Colors */
+  --novi-blue: #4747E0;
+  --novi-blue-dark: #3636B0;
+  --novi-blue-light: #6B6BF0;
+  --novi-yellow: #F5C842;
+  --novi-yellow-light: #FFF3CD;
+  --novi-coral: #E8614D;
+  --novi-peach: #F5A07C;
+  --novi-pink: #F4B5B5;
+  --novi-beige: #F5E6D8;
+  --novi-beige-dark: #EDD9C8;
+  --novi-green: #2D6A4F;
+  --novi-dark: #1A1A2E;
+  --novi-black: #1A1A1A;
+  --novi-text: #1A1A1A;
+  --novi-text-muted: #5A5A6E;
+  --novi-white: #FFFFFF;
+  --novi-off-white: #FAF5F0;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 50%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--novi-text);
+  background-color: var(--novi-off-white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Georgia, 'Times New Roman', serif; /* Moret fallback */
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Header — NOVI blue with organic shape accent */
+header {
+  background-color: var(--novi-blue);
+  color: var(--novi-white);
+  padding: var(--space-2xl) 0 var(--space-xl);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 250px;
+  height: 250px;
+  background-color: var(--novi-coral);
+  border-radius: var(--radius-full);
+  opacity: 0.3;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  right: 100px;
+  width: 180px;
+  height: 180px;
+  background-color: var(--novi-yellow);
+  border-radius: var(--radius-full);
+  opacity: 0.25;
+}
+
+header .container {
+  position: relative;
+  z-index: 1;
+}
+
+header h1 {
+  font-size: 2.8em;
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+}
+
+header .subtitle {
+  font-size: 1.1em;
+  font-weight: 300;
+  opacity: 0.85;
+}
+
+/* Navigation — dark nav with NOVI accents */
+.navbar {
+  background-color: var(--novi-dark);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 0;
+}
+
+.navbar a {
+  display: block;
+  color: var(--novi-white);
+  padding: var(--space-md) var(--space-lg);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.95em;
+  transition: background-color 0.3s, color 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  background-color: rgba(71, 71, 224, 0.15);
+  border-bottom-color: var(--novi-yellow);
+  color: var(--novi-yellow);
+}
+
+/* Main Content */
+main {
+  min-height: calc(100vh - 400px);
+  padding: var(--space-xl) 0;
+}
+
+.content {
+  background: var(--novi-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  box-shadow: 0 2px 12px rgba(26, 26, 46, 0.06);
+}
+
+/* Hero Section — beige accent */
+.hero {
+  text-align: left;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 3px solid var(--novi-beige);
+}
+
+.hero h2 {
+  font-size: 2.4em;
+  color: var(--novi-blue);
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+}
+
+.hero h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--novi-yellow);
+  margin-top: var(--space-sm);
+  border-radius: 2px;
+}
+
+.hero p {
+  font-size: 1.1em;
+  color: var(--novi-text-muted);
+  font-weight: 300;
+}
+
+/* Alerts */
+.alert {
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-lg);
+  font-weight: 400;
+}
+
+.alert-error {
+  background-color: #FEF0F0;
+  color: var(--novi-coral);
+  border-left: 4px solid var(--novi-coral);
+}
+
+/* Notes Section */
+.notes-section {
+  margin-bottom: var(--space-xl);
+}
+
+.notes-section h3 {
+  color: var(--novi-text);
+  margin-bottom: var(--space-lg);
+  font-size: 1.5em;
+}
+
+.notes-section h3::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background-color: var(--novi-yellow);
+  margin-top: var(--space-xs);
+  border-radius: 2px;
+}
+
+.no-notes {
+  color: var(--novi-text-muted);
+  padding: var(--space-lg);
+  background-color: var(--novi-beige);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  font-weight: 400;
+}
+
+.no-notes + pre {
+  background-color: var(--novi-dark);
+  color: #E0E0E0;
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+}
+
+pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.88em;
+  color: inherit;
+}
+
+/* Notes Grid */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.note-card {
+  background: var(--novi-white);
+  border: 1px solid var(--novi-beige-dark);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(26, 26, 46, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.note-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--novi-blue);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.note-card:nth-child(2)::before { background-color: var(--novi-coral); }
+.note-card:nth-child(3)::before { background-color: var(--novi-yellow); }
+.note-card:nth-child(4)::before { background-color: var(--novi-green); }
+.note-card:nth-child(5)::before { background-color: var(--novi-peach); }
+.note-card:nth-child(6)::before { background-color: var(--novi-blue); }
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(26, 26, 46, 0.1);
+}
+
+.note-card h4 {
+  color: var(--novi-text);
+  margin-bottom: var(--space-sm);
+  font-size: 1.1em;
+}
+
+.note-card p {
+  color: var(--novi-text-muted);
+  margin-bottom: var(--space-sm);
+  min-height: 60px;
+  font-weight: 300;
+}
+
+.note-card small {
+  color: var(--novi-text-muted);
+  display: block;
+  margin-bottom: var(--space-md);
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+/* Buttons */
+.btn-small {
+  display: inline-block;
+  background-color: var(--novi-blue);
+  color: var(--novi-white);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s, transform 0.15s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-small:hover {
+  background-color: var(--novi-blue-dark);
+  transform: translateY(-1px);
+}
+
+/* Secondary button variant */
+.btn-small.btn-secondary {
+  background-color: transparent;
+  color: var(--novi-blue);
+  border: 2px solid var(--novi-blue);
+}
+
+.btn-small.btn-secondary:hover {
+  background-color: var(--novi-blue);
+  color: var(--novi-white);
+}
+
+/* Coral/accent button variant */
+.btn-small.btn-accent {
+  background-color: var(--novi-coral);
+}
+
+.btn-small.btn-accent:hover {
+  background-color: #D1503F;
+}
+
+/* Info Section */
+.info-section {
+  background-color: var(--novi-beige);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+}
+
+.info-section h3 {
+  color: var(--novi-text);
+  margin-bottom: var(--space-md);
+}
+
+.info-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info-section li {
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--novi-beige-dark);
+  color: var(--novi-text-muted);
+  font-weight: 300;
+}
+
+.info-section li::before {
+  content: '\2192';
+  color: var(--novi-blue);
+  margin-right: var(--space-sm);
+  font-weight: 600;
+}
+
+.info-section li:last-child {
+  border-bottom: none;
+}
+
+.info-section strong {
+  color: var(--novi-blue);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* Footer — dark with NOVI accents */
+footer {
+  background-color: var(--novi-dark);
+  color: var(--novi-white);
+  text-align: center;
+  padding: var(--space-lg) 0;
+  margin-top: var(--space-2xl);
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--novi-blue), var(--novi-coral), var(--novi-yellow), var(--novi-green));
+}
+
+footer p {
+  margin: 0;
+  opacity: 0.7;
+  font-weight: 300;
+  font-size: 0.9em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+
+  header h1 {
+    font-size: 2em;
+  }
+
+  header::before,
+  header::after {
+    display: none;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+  }
+
+  .navbar a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid transparent;
+  }
+
+  .navbar a:hover,
+  .navbar a.active {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    border-left-color: var(--novi-yellow);
+  }
+
+  .hero h2 {
+    font-size: 1.8em;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+  }
+}

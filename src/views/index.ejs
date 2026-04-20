@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dotNOVI - NOVI Hogeschool DevOps Course</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>dotNOVI</h1>
+      <p class="subtitle">NOVI Hogeschool DevOps Course Application</p>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="container">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/api/notes">API</a></li>
+        <li><a href="/health">Health</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="content">
+        <section class="hero">
+          <h2>Welcome to dotNOVI</h2>
+          <p>A simple Node.js application for learning DevOps practices at NOVI Hogeschool.</p>
+        </section>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="alert alert-error">
+            <%= error %>
+          </div>
+        <% } %>
+
+        <section class="notes-section">
+          <h3>Notes (<%= notes.length %>)</h3>
+
+          <% if (notes.length === 0) { %>
+            <p class="no-notes">No notes found. Create one using the API:</p>
+            <pre><code>curl -X POST http://localhost:3000/api/notes \
+  -H "Content-Type: application/json" \
+  -d '{"title":"My Note","content":"This is a note"}'</code></pre>
+          <% } else { %>
+            <div class="notes-grid">
+              <% notes.forEach(note => { %>
+                <article class="note-card">
+                  <h4><%= note.title %></h4>
+                  <p><%= note.content.substring(0, 100) %>...</p>
+                  <small>Created: <%= new Date(note.created_at).toLocaleDateString() %></small>
+                  <a href="/api/notes/<%= note.id %>" class="btn-small">View</a>
+                </article>
+              <% }); %>
+            </div>
+          <% } %>
+        </section>
+
+        <section class="info-section">
+          <h3>API Endpoints</h3>
+          <ul>
+            <li><strong>GET /api/notes</strong> - List all notes</li>
+            <li><strong>GET /api/notes/:id</strong> - Get note by ID</li>
+            <li><strong>POST /api/notes</strong> - Create new note</li>
+            <li><strong>PUT /api/notes/:id</strong> - Update note</li>
+            <li><strong>DELETE /api/notes/:id</strong> - Delete note</li>
+            <li><strong>GET /health</strong> - Health check</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 NOVI Hogeschool.</p>
+    </div>
+  </footer>
+</body>
+</html>
