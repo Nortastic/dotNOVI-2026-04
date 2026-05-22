@@ -1,20 +1,28 @@
-name: CI
+name: Node.js CI
 
-on:                              # Trigger events
+on:
   push:
-    branches: [main, develop, 'feature/**']
+    branches: [ "main" ]
   pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 0 * * *'          # Daily at midnight
+    branches: [ "main" ]
 
 jobs:
-  job-name:                       # Job definition
-    runs-on: ubuntu-latest        # Runner
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-
-      - name: Step 2
-        run: npm test             # Inline command
-        env:                       # Environment vars
-          NODE_ENV: test
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
