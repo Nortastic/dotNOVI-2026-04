@@ -1,0 +1,20 @@
+name: CI
+
+on:                              # Trigger events
+  push:
+    branches: [main, develop, 'feature/**']
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * *'          # Daily at midnight
+
+jobs:
+  job-name:                       # Job definition
+    runs-on: ubuntu-latest        # Runner
+
+    steps:
+
+      - name: Step 2
+        run: npm test             # Inline command
+        env:                       # Environment vars
+          NODE_ENV: test
