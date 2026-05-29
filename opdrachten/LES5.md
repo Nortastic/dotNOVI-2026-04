@@ -160,6 +160,7 @@ Secrets to add:
 ```bash
 https://gist.github.com/erikkasimier/87be7004dfa7ceacf9814d9d6136a082
 https://gist.github.com/erikkasimier/bea74a6028fcbca026db9768294569b4
+https://gist.github.com/erikkasimier/7cdb4e7c03a14619e2d74ca08b5e6127
 
 git add .
 git commit -m "ci/cd: add deployment workflows"
