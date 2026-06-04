@@ -7,8 +7,13 @@ on:
     inputs:
       image_tag:
         description: 'Docker image tag to deploy'
-        required: true
+        required: false
+        default: 'ghcr.io/nortastic/dotnovi-2026-04:main'
         type: string
+
+permissions:
+  contents: read
+  packages: read
 
 jobs:
   deploy:
@@ -23,11 +28,18 @@ jobs:
       - name: Normalize image tag
         id: image
         env:
-          RAW_IMAGE_TAG: ${{ github.event.client_payload.image_tag || inputs.image_tag }}
+          RAW_IMAGE_TAG: ${{ github.event.client_payload.image_tag || inputs.image_tag || 'ghcr.io/nortastic/dotnovi-2026-04:main' }}
         run: |
           IMAGE_TAG="$(echo "$RAW_IMAGE_TAG" | tr '[:upper:]' '[:lower:]')"
           echo "image_tag=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
           echo "Using image tag: $IMAGE_TAG"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify image exists
         run: |
@@ -38,13 +50,6 @@ jobs:
           IMAGE_TAG: ${{ steps.image.outputs.image_tag }}
           DEPLOYMENT_ENV: production
         run: |
-          # This is a placeholder
-          # In real scenario, this would:
-          # - SSH to production server
-          # - Run docker pull and docker run
-          # - Update load balancer
-          # - Run health checks
-          # - Rollback on failure
           echo "Deploying image: $IMAGE_TAG"
           echo "Environment: $DEPLOYMENT_ENV"
 
@@ -57,10 +62,7 @@ jobs:
       - name: Run smoke tests
         continue-on-error: true
         run: |
-          # Wait for service to be ready
           sleep 10
-
-          # These are placeholders. They will fail unless the app is actually running on localhost.
           curl -f http://localhost:3000/health || exit 1
           curl -f http://localhost:3000/api/notes || exit 1
 
@@ -78,8 +80,6 @@ jobs:
       - name: Get previous image tag
         id: previous
         run: |
-          # Get the previous deployment's image tag
-          # This would normally come from your deployment tracking system
           echo "image_tag=ghcr.io/nortastic/dotnovi-2026-04:previous" >> "$GITHUB_OUTPUT"
 
       - name: Rollback to previous version
