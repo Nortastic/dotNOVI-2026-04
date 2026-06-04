@@ -10,15 +10,16 @@ on:
       - 'Dockerfile'
       - '.github/workflows/cd.yml'
 
+permissions:
+  contents: write
+  packages: write
+  actions: write
+
 jobs:
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    permissions:
-      contents: read
-      packages: write
 
     outputs:
       image_tag: ghcr.io/${{ github.repository }}:main
@@ -93,6 +94,7 @@ jobs:
       - name: Trigger deployment workflow
         uses: peter-evans/repository-dispatch@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           event-type: deploy-production
           client-payload: |
             {
