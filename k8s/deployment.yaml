@@ -1,22 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dotnovi
 spec:
-  replicas: 3
-
   selector:
     matchLabels:
       app: dotnovi
-
   template:
     metadata:
       labels:
         app: dotnovi
     spec:
       containers:
-        - name: dotnovi
-          image: dotnovi:latest
-          imagePullPolicy: Never
           ports:
-            - containerPort: 8080

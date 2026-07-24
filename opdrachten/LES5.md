@@ -331,21 +331,65 @@ Implement automatic rollback:
   run: ./rollback.sh
 ```
 
-### Opdracht 5: Slack Notifications
+### Opdracht 5: Deploy naar Render.com
 
-Setup Slack webhook:
+Deploy je applicatie naar Render.com vanuit je CI/CD pipeline.
 
 ```bash
-# 1. Create Slack App
-# https://api.slack.com/apps
+# 1. Maak een account op https://render.com (gratis tier)
 
-# 2. Enable Incoming Webhooks
-# Create new webhook
+# 2. Maak een nieuwe "Web Service":
+#    - Koppel je GitHub repo, of kies "Deploy an existing image from a registry"
+#    - Als je GHCR gebruikt: image = ghcr.io/<username>/dotnovi-app:latest
+#    - Environment: voeg DATABASE_URL toe (Render kan ook een PostgreSQL database aanmaken)
+#    - Port: 3000
 
-# 3. Add secret in GitHub
-# SLACK_WEBHOOK_URL=https://hooks.slack.com/...
+# 3. Optie A: Automatisch via GitHub integratie
+#    Render detecteert pushes naar main en deployt automatisch
 
-# 4. Notifications automatic via workflow
+# 4. Optie B: Deploy hook vanuit GitHub Actions
+#    Ga naar Render Dashboard → je service → Settings → Deploy Hook
+#    Kopieer de hook URL
+```
+
+```yaml
+# .github/workflows/deploy-production.yml
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deploy environment'
+        default: 'production'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+
+      - name: Wait for deployment
+        run: sleep 30
+
+      - name: Smoke test
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://jouw-app.onrender.com/health)
+          if [ "$STATUS" != "200" ]; then
+            echo "Health check failed with status $STATUS"
+            exit 1
+          fi
+          echo "Deploy successful!"
+```
+
+```bash
+# 5. Voeg secret toe aan GitHub:
+#    Repository → Settings → Secrets → RENDER_DEPLOY_HOOK
+
+# 6. Test de hele flow:
+#    Push code → CI (lint + test) → Docker build → Deploy naar Render → Health check
 ```
 
 ## Deployment Checklist
