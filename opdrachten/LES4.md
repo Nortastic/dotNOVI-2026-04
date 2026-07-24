@@ -158,7 +158,7 @@ steps:
     run: npm run deploy
 
   # Matrix strategy
-  strategy:
+strategy:
     matrix:
       node-version: [18, 20]
 ```
