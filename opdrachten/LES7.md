@@ -1,4 +1,4 @@
-# Les 7: Infrastructure as Code met Terraform
+terraform -v# Les 7: Infrastructure as Code met Terraformterraform initwinget install HashiCorp.Terraform
 
 ## Doelstellingen
 

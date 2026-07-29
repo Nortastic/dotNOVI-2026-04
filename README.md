@@ -213,3 +213,52 @@ dotNOVI-app/
    ```bash
    curl http://localhost:3000/health
    ```
+## 📊 Monitoring & Observability Stack
+
+Voor het bewaken en visualiseren van de infrastructuur en containers is er een complete monitoring stack geconfigureerd met **Prometheus**, **Grafana**, **cAdvisor**, **Node Exporter** en **Alertmanager**.
+
+### Monitoring Opstarten
+
+De gehele monitoring stack bevindt zich in de `monitoring/` map en wordt beheerd via Docker Compose.
+
+```bash
+# 1. Navigeer naar de monitoring map
+cd monitoring
+
+# 2. Start de gehele stack op de achtergrond
+docker compose up -d
+
+ServicePoortBeschrijvingInloggegevensNode.js App3000De hoofdapplicatieN.v.t.Grafana3001Dashboard UI & Visualisatieadmin / grafana_admin_passwordPrometheus9090Metrics Collection & StorageN.v.t.cAdvisor8081Live Container Metrics (CPU, Memory per Docker container)N.v.t.Node Exporter9100Host Metrics (Systeembelasting van de machine)N.v.t.Alertmanager9093Alert routing en verwerkingN.v.t.📈 Grafana DashboardsDe Grafana omgeving is voorzien van automatisch geconfigureerde provisioning. Bij het opstarten worden de geëxporteerde dashboards direct geladen vanuit ./monitoring/grafana/dashboards/:cAdvisor Exporter (cadvisor.json): Biedt een compleet overzicht van alle draaiende Docker-containers, inclusief CPU-, RAM- en netwerkverbruik.Node Exporter (node-exporter.json): Biedt diepgaand inzicht in het geheugengebruik, de processen en de CPU-belasting van de host-machine.StructuurdotNOVI-app/
+├── monitoring/
+│   ├── docker-compose.yml # Monitoring stack
+│   ├── prometheus.yml     # Prometheus config
+│   ├── alertmanager.yml   # Alertmanager config
+│   └── grafana/
+│       ├── provisioning/  # Provisioning configs
+│       └── dashboards/    # Geëxporteerde JSON dashboards
+├── src/
+│   ├── index.js           # Main Express app
+│   ├── db.js              # Database connection
+│   ├── routes/
+│   │   ├── health.js      # Health check route
+│   │   └── notes.js       # Notes CRUD routes
+│   ├── views/
+│   │   ├── layout.ejs     # Base template
+│   │   └── index.ejs      # Homepage
+│   ├── public/
+│   │   └── style.css      # Styling
+│   └── db/
+│       └── init.sql       # Database schema
+├── tests/
+│   ├── health.test.js
+│   └── notes.test.js
+├── package.json
+├── .env.example
+├── .gitignore
+├── .eslintrc.json
+└── jest.config.js
+Development WorkflowMaak een notitie:Bashcurl -X POST http://localhost:3000/api/notes \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Test","content":"Dit is een test"}'
+Bekijk notities:Bashcurl http://localhost:3000/api/notes
+Check health:Bashcurl http://localhost:3000/health

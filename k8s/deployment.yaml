@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: dotnovi
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: dotnovi
@@ -10,5 +12,41 @@ spec:
       labels:
         app: dotnovi
     spec:
+      # 3. Security (Op container level of pod level)
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+
       containers:
+        - name: app
+          image: dotnovi:latest
           ports:
+            - containerPort: 3000
+
+          # 3. Security extra check
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          # 1. Resource Management (Geheugen & CPU grenzen)
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+          # 2. Health Checks (Liveness & Readiness)
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
