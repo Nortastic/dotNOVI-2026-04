@@ -1,5 +1,5 @@
 {
-  "name": "dotNOVI",
+  "name": "dotnovi",
   "version": "1.0.0",
   "description": "dotNOVI - A simple Node.js application for NOVI Hogeschool DevOps course",
   "main": "src/index.js",
@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
-    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
     "lint": "eslint src tests",
     "lint:fix": "eslint src tests --fix"
   },
@@ -33,6 +33,16 @@
     "jest": "^30.3.0",
     "nodemon": "^3.1.14",
     "supertest": "^7.2.2"
+  },
+  "overrides": {
+    "brace-expansion": "^1.1.11",
+    "minimatch": {
+      "brace-expansion": "^1.1.11"
+    },
+    "glob": {
+      "minimatch": "^3.1.2",
+      "brace-expansion": "^1.1.11"
+    }
   },
   "engines": {
     "node": ">=20.0.0"
