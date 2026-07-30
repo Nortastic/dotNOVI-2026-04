@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
       database: dbHealthy ? 'connected' : 'disconnected',
-      demo: 'Live RIVM Pipeline Demo - Success 2.0'
+      demo: 'Live RIVM Pipeline Demo - Success'
     };
 
     const statusCode = dbHealthy ? 200 : 503;
