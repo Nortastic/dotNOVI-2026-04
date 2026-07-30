@@ -49,10 +49,11 @@ app.use((req, res, next) => {
 // --- OVERIGE EXPRESS MIDDLEWARE & ROUTES ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public'))); // ../ als public in de root staat
 
+// Paden aangepast: zoekt nu direct in src/public en src/views
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views')); // ../ als views in de root staat
+app.set('views', path.join(__dirname, 'views'));
 
 app.use('/health', healthRoutes);
 app.use('/api/notes', notesRoutes);
